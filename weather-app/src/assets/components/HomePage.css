@@ -1,0 +1,46 @@
+h1{
+  text-align: center;
+  color: rgb(21, 21, 197);
+}
+
+.input-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 300px;
+  margin:20px auto;
+}
+
+.input-city{
+  padding: 4px 11px;
+  outline: none;
+}
+
+.input-city:focus{
+  border: solid 2px;
+  border-color: blue;
+}
+
+.check-btn{
+  color:white;
+  font-weight: bolder;
+  border: none;
+  border-radius: 3px;
+  background-color: rgb(15, 213, 15);
+  padding: 4px 13px;
+  margin-top: 4px;
+}
+
+.check-btn:hover{
+  color: rgb(242, 242, 242);
+}
+
+.check-btn:active{
+  background-color:  rgb(27, 172, 27);;
+}
+
+.weather-output{
+  text-align: center;
+}
