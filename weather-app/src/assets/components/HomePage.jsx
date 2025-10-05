@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import axios from 'axios';
+import { convertTemp } from '../utils/convertTemp';
 import './HomePage.css';
 export function HomePage(){
 
   const [city , setCity] = useState('');
   const [currWeather , setCurrWeather]  = useState('');
+  const [currTemp , setCurrTemp ] = useState('');
 
   const apiKey = "6ebbc164edd1a8b2178b4e0be0e934c9";
 
@@ -12,6 +14,8 @@ export function HomePage(){
     try{
       const response =  await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
       setCurrWeather(response.data.weather[0].description)
+      const tempK = response.data.main.temp;
+      setCurrTemp(convertTemp(tempK));
     }catch(error){
       console.log(error);
       setCurrWeather("No Output");
@@ -43,11 +47,16 @@ export function HomePage(){
       <div
         className='weather-container'
       >
-        <p
+        <div
           className='weather-output'
         >
-          {currWeather}
-        </p>
+          <p>
+          Weather : {currWeather}
+          </p>
+          <p>
+            Temperature : {currTemp}
+          </p>
+        </div>
       </div>
     </>
   );
