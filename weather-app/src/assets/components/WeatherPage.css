@@ -1,0 +1,89 @@
+* {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  width: 19rem;
+  height: 20rem;
+  border-radius: 10px;
+  margin: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Temperature container */
+.temp-container {
+  margin-left: 0.7rem;
+  margin-top: 2rem;
+  height: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  /* aligns °C with numbers */
+  gap: 5px;
+}
+
+.temp h1 {
+  font-weight: 300;
+  font-size: 56px;
+  margin: 0;
+  line-height: 1;
+}
+
+.temp-type {
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 1;
+}
+
+/* Weather text container */
+.weather-container {
+  margin-top: -3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-container p {
+  font-size: 19px;
+  text-transform: capitalize;
+}
+
+/* Wind & Humidity container */
+.other-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  /* spreads them evenly */
+  padding: 0 2rem;
+  /* add horizontal padding for spacing */
+  height: 3rem;
+  align-items: center;
+}
+
+.other-container p {
+  font-size: 14px;
+  font-weight: 200;
+  margin: 0;
+}
+
+.bg-Clouds {
+  color: white;
+  background: url("rainyClouds.jpg") no-repeat center center/cover;
+}
+
+.bg-Rain {
+  color: white;
+  background: url("Rain.jpg") no-repeat center center/cover;
+}
+
+.bg-Clear{
+  background: url("Sunny.jpg") no-repeat center center/cover;
+}
+
+.bg-Clear , .bg-Rain , .bg-Clouds p{
+  font-weight: 400;
+}

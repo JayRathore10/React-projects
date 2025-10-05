@@ -3,6 +3,7 @@ import axios from 'axios';
 import { convertTemp } from '../utils/convertTemp';
 import { convertWindSpeed } from '../utils/convertWindSpeed';
 import './HomePage.css';
+import { WeatherPage } from './WeatherPage';
 export function HomePage() {
 
   const [city, setCity] = useState('');
@@ -10,6 +11,8 @@ export function HomePage() {
   const [wind, setWind] = useState('');
   const [currTemp, setCurrTemp] = useState('');
   const [humidity , setHumidity] = useState('');
+  const [bg , setBg] = useState('');
+  const [show, setShow] = useState(false);
 
   const setAllData = (response) => {
     setCurrWeather(response.data.weather[0].description)
@@ -26,6 +29,10 @@ export function HomePage() {
     try {
       const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
 
+     setBg(response.data.weather[0].main);
+
+    console.log(bg);
+      
       setAllData(response);
 
     } catch (error) {
@@ -36,7 +43,9 @@ export function HomePage() {
 
   return (
     <>
-      <h1>Weather App</h1>
+      <h1
+        className='heading'
+      >Weather App</h1>
       <div
         className="input-container"
       >
@@ -47,38 +56,23 @@ export function HomePage() {
             setCity(e.target.value)
           }}
           onKeyDown={(e)=>{
-            if(e.key === 'Enter') fetchWeather(); 
+            if(e.key === 'Enter'){
+              fetchWeather(); 
+              setShow(true);
+            }
           }}
         ></input>
         <button
           className='check-btn'
           onClick={async () => {
+            setShow(true);
             fetchWeather();
           }}
         >
           Check Weather
         </button>
       </div>
-      <div
-        className='weather-container'
-      >
-        <div
-          className='weather-output'
-        >
-          <p>
-            Weather : {currWeather}
-          </p>
-          <p>
-            Temperature : {currTemp} {currTemp && `°C` } 
-          </p>
-          <p>
-            Wind Speed : {wind} {wind && `KM/H`}
-          </p>
-          <p>
-            Humidity : {humidity}{humidity && `%`}
-          </p>
-        </div>
-      </div>
+      { show === true && <WeatherPage currTemp={currTemp} wind={wind} currWeather={currWeather} humidity={humidity} bg={bg} />}
     </>
   );
 }

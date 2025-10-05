@@ -1,4 +1,4 @@
-h1{
+.heading{
   text-align: center;
   color: rgb(21, 21, 197);
 }
@@ -39,8 +39,4 @@ h1{
 
 .check-btn:active{
   background-color:  rgb(27, 172, 27);;
-}
-
-.weather-output{
-  text-align: center;
 }
