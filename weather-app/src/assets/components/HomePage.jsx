@@ -1,43 +1,58 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { convertTemp } from '../utils/convertTemp';
+import { convertWindSpeed } from '../utils/convertWindSpeed';
 import './HomePage.css';
-export function HomePage(){
+export function HomePage() {
 
-  const [city , setCity] = useState('');
-  const [currWeather , setCurrWeather]  = useState('');
-  const [currTemp , setCurrTemp ] = useState('');
+  const [city, setCity] = useState('');
+  const [currWeather, setCurrWeather] = useState('');
+  const [wind, setWind] = useState('');
+  const [currTemp, setCurrTemp] = useState('');
+  const [humidity , setHumidity] = useState('');
+
+  const setAllData = (response) => {
+    setCurrWeather(response.data.weather[0].description)
+    const tempK = response.data.main.temp;
+    setCurrTemp(convertTemp(tempK));
+    const windSpeedMs = response.data.wind.speed;
+    setWind(convertWindSpeed(windSpeedMs));
+    setHumidity(response.data.main.humidity);
+  }
 
   const apiKey = "6ebbc164edd1a8b2178b4e0be0e934c9";
 
-  const fetchWeather = async()=>{
-    try{
-      const response =  await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
-      setCurrWeather(response.data.weather[0].description)
-      const tempK = response.data.main.temp;
-      setCurrTemp(convertTemp(tempK));
-    }catch(error){
+  const fetchWeather = async () => {
+    try {
+      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+
+      setAllData(response);
+
+    } catch (error) {
       console.log(error);
       setCurrWeather("No Output");
-    }    
+    }
   }
 
-  return(
+  return (
     <>
       <h1>Weather App</h1>
       <div
         className="input-container"
       >
         <input
-          type = "text"
+          type="text"
           className="input-city"
-          onChange={(e)=>{
+          onChange={(e) => {
             setCity(e.target.value)
+          }}
+          onKeyDown={(e)=>{
+            if(e.key === 'Enter') fetchWeather(); 
           }}
         ></input>
         <button
           className='check-btn'
-          onClick={async()=>{
+          onClick={async () => {
             fetchWeather();
           }}
         >
@@ -51,10 +66,16 @@ export function HomePage(){
           className='weather-output'
         >
           <p>
-          Weather : {currWeather}
+            Weather : {currWeather}
           </p>
           <p>
-            Temperature : {currTemp}
+            Temperature : {currTemp} {currTemp && `°C` } 
+          </p>
+          <p>
+            Wind Speed : {wind} {wind && `KM/H`}
+          </p>
+          <p>
+            Humidity : {humidity}{humidity && `%`}
           </p>
         </div>
       </div>
